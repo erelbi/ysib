@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+    tbody tr:hover{
+        background: rgba(217, 217, 217, 0.4);
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h2>Kullanıcı ekleme</h2>
+<form>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputEmail4">Email</label>
+        <input type="email" class="form-control" id="inputEmail4">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputPassword4">Password</label>
+        <input type="password" class="form-control" id="inputPassword4">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAddress">Address</label>
+      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+    </div>
+    <div class="form-group">
+      <label for="inputAddress2">Address 2</label>
+      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+    </div>
+    <div class="form-group">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="gridCheck">
+        <label class="form-check-label" for="gridCheck">
+          Check me out
+        </label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign in</button>
+  </form>
+
+
+
+
+<h2>Kullanıcılar</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>İsim</th>
+        <th>Tel</th>
+        <th>DTMF</th>
+        <th>Operations</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <form action="#">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="name" class="form-control" id="name" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone:</label>
+              <input type="phone" class="form-control" id="phone" placeholder="Enter phone">
+            </div>
+            <div class="form-group">
+              <label for="dtmf">DTMF:</label>
+              <input type="dtmf" class="form-control" id="dtmf" placeholder="Enter dtmf">
+            </div>
+            <button type="submit" class="btn btn-success">Save</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}
+{% block script %}
+<script>
+    var data = [{
+  "id": 1,
+  "Name": "Kamba",
+  "Phone": "30-(541)656-1685",
+  "DTMF": 757
+}, {
+  "id": 2,
+  "Name": "Feedmix",
+  "Phone": "967-(362)975-4248",
+  "DTMF": 198
+}, {
+  "id": 3,
+  "Name": "Thoughtstorm",
+  "Phone": "358-(619)930-2339",
+  "DTMF": 252
+}, {
+  "id": 4,
+  "Name": "Shufflebeat",
+  "Phone": "86-(776)437-7364",
+  "DTMF": 689
+}, {
+  "id": 5,
+  "Name": "Reallinks",
+  "Phone": "55-(689)180-3162",
+  "DTMF": 173
+}, {
+  "id": 6,
+  "Name": "Digitube",
+  "Phone": "1-(504)256-2986",
+  "DTMF": 799
+}, {
+  "id": 7,
+  "Name": "Nlounge",
+  "Phone": "62-(928)582-6766",
+  "DTMF": 477
+}, {
+  "id": 8,
+  "Name": "Aimbu",
+  "Phone": "33-(573)429-4209",
+  "DTMF": 445
+}, {
+  "id": 9,
+  "Name": "Mydo",
+  "Phone": "370-(167)136-2174",
+  "DTMF": 854
+}, {
+  "id": 10,
+  "Name": "Tagcat",
+  "Phone": "46-(159)429-8509",
+  "DTMF": 859
+}];
+/* 
+Dynamic creation of table is not the best practice...
+Better way to clone existing table and fill it with data.
+*/
+$(data).each(function(i, elem) {
+  $('.table').append('<tr><td>' + elem['Name'] +
+    '</td><td>' + elem['Phone'] + '</td><td>' +
+    elem['DTMF'] + '</td><td>' +
+    '\
+<a href="#edit=' + elem['id'] + '" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal"> \
+      <span class="fa fa-edit"></span>\
+    </a> \
+<a href="#delete=' + elem['id'] + '" class="btn btn-danger btn-xs"> \
+      <span class="fa fa-trash-o"></span>\
+    </a> \
+                     </td></tr>')
+});
+
+$('.btn-success').on('click', function(){
+  // Get all TD from the cliked Button
+  var td = $(this).parents('tr').find('td:lt(3)');
+  // $td.each(function(i){
+  // Only the $() makes this td Object of DOM
+    $('#name').val($(td[0]).text());
+    $('#phone').val($(td[1]).text());
+    $('#dtmf').val($(td[2]).text());
+  // })
+});
+
+// Delete Button Done!!!
+$('.btn-danger').on('click', function(){
+  $(this).parents('tr').remove();
+})
+
+</script>
+{% endblock %}
