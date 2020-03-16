@@ -1,15 +1,15 @@
 {% load static %}
 {% block sidebar %}
-<nav class="navbar-default navbar-static-side" role="navigation">
+<nav class="navbar-default navbar-static-side" style="position: fixed;" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="/">
+                    <a  href="/">
                         <div class="logom" style="background-image: url({% static 'img/logo.png' %});"></div>
                     </a>
                 </div>
-                <div class="logo-element" style="font-size: 24px;letter-spacing: -4px;">
+                <div class="logo-element" style="font-size: 24px;letter-spacing: -4px;font-family:'Courier New', Courier, monospace">
                     <span style="color: black;">M</span>
                     <span style="color: #c7ae3c;">D</span>
                 </div>
@@ -17,13 +17,13 @@
             <li {% if request.path == "/" %} class="active" {% endif %}>
                 <a href="/"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Dasboard</span></a>
             </li>
-            <li {% if request.path == "/isEmri" %} class="active"  {% endif %}>
+            <li {% if request.path == "/isemri" %} class="active"  {% endif %}>
                 <a href="/isemri"><i class="fa fa-th-large"></i> <span class="nav-label">İş Emri</span></a>
             </li>
-            <li {% if request.path == "/girisKaliteKontrol" %} class="active"  {% endif %}>
+            <li {% if request.path == "/giriskalite" %} class="active"  {% endif %}>
                 <a href="/giriskalite"><i class="fa fa-check-square-o"></i> <span class="nav-label">Giriş Kalite Kontrol</span></a>
             </li>
-            <li {% if request.path == "/kullaniciYetkilendirme" %} class="active"  {% endif %}>
+            <li {% if request.path == "/yetkilendirme" %} class="active"  {% endif %}>
                 <a href="/yetkilendirme"><i class="fa fa-users"></i> <span class="nav-label">Kullanıcı Yetkilendirme</span></a>
             </li>
             <li {% if request.path == "/performans" %} class="active"  {%endif %}>

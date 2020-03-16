@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .forms import RegisterForm
 
 # Create your views here.
 def index(request):
@@ -14,10 +15,23 @@ def isemri(request):
         return render(request,'is-emri.html')
 
 def yetkilendirme(request):
-        return render(request,'kullanici-yetkilendirme.html')
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = RegisterForm()
+    return render(request,'kullanici-yetkilendirme.html',{"form":form})
 
-def login(request):
-        return render(request,'login.html')
 
 def performans(request):
         return render(request,'performans.html')
+
+def register(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = RegisterForm()
+    return render(request,"register.html",{"form":form})

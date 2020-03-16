@@ -1,4 +1,179 @@
 {% extends "base.html" %}
-{% block content %}
+{% load static %}
+{% block style %}
+<link href="{% static 'css/datatables.min.css' %}" rel="stylesheet">
+<style>
 
+.tab-wrapper {
+  width : 100%;
+}
+.tab-menu{
+    padding-left: 0;
+    margin-bottom: 0;
+}
+.tab-menu li {
+  position:relative;
+  background-color: #fff;
+  color:#000;
+  display: inline-block;
+  padding:10px;
+  cursor:pointer;
+  z-index:0;
+}
+
+.tab-menu li:hover {
+  color:#000;
+}
+
+.tab-menu li.active {
+  color:#000;
+  opacity: 1;
+  border:1px solid rgba(0, 0, 0, .3);
+  border-bottom: 2px solid #1ab394;
+}
+
+.tab-menu li.active:hover {
+  color:#000;
+}
+
+.tab-content>div {
+  background-color: #fff;
+  box-sizing:border-box;
+  width: 100%;
+  padding: 50px;   
+  min-height:200px;
+  border-width: 0px 1px 1px;
+  border-color: rgba(0, 0, 0, .3);
+  border-style: solid;
+}
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="tab-wrapper">
+  
+    <ul class="tab-menu">
+      <li class="active">Genel Bakış</li>
+      <li>Valf Montaj</li>
+      <li>Valf Test Ünitesi</li>
+      <li>Valf-Gövde Montaj Ünitesi</li>
+      <li>FM200 Azot Dolum Ünitesi</li>
+      <li>Havuz Test Ünitesi</li>
+      <li>Final Montaj</li>
+    </ul>
+    
+    <div class="tab-content">
+      <!--giriş kalite kontrol-->
+      <div class="row">
+        <div class="col-md-5">
+          <h3>İş emri 1</h3>
+          <small>22/05/2020</small>
+          <small>Oğuzhan Titiz</small>
+          <div id="bar"></div>
+        </div>
+        <div class="col-md-7">
+
+          <div id="pie"></div>
+        </div>
+      </div>
+      <!--end of giriş kalite kontrol-->
+      <div>b</div>
+      <div>c</div>
+      <div>d</div>
+      <div>e</div>
+      <div>f</div>
+      <div>g</div>
+    </div><!-- //tab-content -->
+    
+  </div><!-- //tab-wrapper -->
+  
+  
+{% endblock %}
+{% block script %}
+<script src="{% static 'js/datatables.min.js' %}"></script>
+<script>
+      $(document).ready(function() {
+  
+  var $wrapper = $('.tab-wrapper'),
+      $allTabs = $wrapper.find('.tab-content > div'),
+      $tabMenu = $wrapper.find('.tab-menu li')
+  
+  $allTabs.not(':first-of-type').hide();  
+  $tabMenu.filter(':first-of-type').find(':first').width('100%')
+  
+  $tabMenu.each(function(i) {
+    $(this).attr('data-tab', 'tab'+i);
+  });
+  
+  $allTabs.each(function(i) {
+    $(this).attr('data-tab', 'tab'+i);
+  });
+  
+  $tabMenu.on('click', function() {
+    
+    var dataTab = $(this).data('tab'),
+        $getWrapper = $(this).closest($wrapper);
+    
+    $getWrapper.find($tabMenu).removeClass('active');
+    $(this).addClass('active');
+    
+    $getWrapper.find($allTabs).hide();
+    $getWrapper.find($allTabs).filter('[data-tab='+dataTab+']').show();
+  });
+
+});//end ready
+</script>
+<script src="{% static 'js/apexchart.js' %}"></script>
+<script>
+          var optionspie = {
+          series: [400, 430, 448,367,212,457,111],
+          chart: {
+          width: 500,
+          type: 'pie',
+        },
+        labels: ['Valf Montaj', 'Valf Test Ünitesi','Valf-Gövde Montaj Ünitesi','FM200-Azot Dolum Ünitesi','Havuz Test Ünitesi', 'Final Montaj'],
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 400
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#pie"), optionspie);
+        chart.render();
+</script>
+<script>
+  var optionsbar = {
+          series: [{
+          data: [400, 430, 448,367,212,457,111]
+        }],
+          chart: {
+          type: 'bar',
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            horizontal: true,
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        xaxis: {
+          categories: ['Valf Montaj', 'Valf Test Ünitesi','Valf-Gövde Montaj Ünitesi','FM200-Azot Dolum Ünitesi','Havuz Test Ünitesi', 'Final Montaj',
+          ],
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#bar"), optionsbar);
+        chart.render();
+</script>
 {% endblock %}
