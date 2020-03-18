@@ -9,8 +9,8 @@ urlpatterns = [
     path('isemri', views.isemri, name='isemri'),
     path('yetkilendirme', views.yetkilendirme, name='yetkilendirme'),
     path('performans', views.performans, name='performans'),
-    path('register/', views.register, name='register'),
-    #path('login', views.loginpage, name='loginpage'),
+    #path('register/', views.register, name='register'),
+    path('login/', views.ulogin, name='ulogin'),
     #path('profile/', views.profile, name='profile'),
-    #path('logout/', views.logout, name='logout'),
+    path('logout/', views.ulogout, name='ulogout'),
 ]
