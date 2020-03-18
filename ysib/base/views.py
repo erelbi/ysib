@@ -14,13 +14,16 @@ emirler = Emir.objects.all()
 mac = os.uname()[4][:3] # eğer device res pi ise 'arm' döner
 @login_required
 def index(request):
-        return render(request,'index.html')
+        return render(request,'index.html', { 'mac' : mac })
 @login_required
 def arama(request):
-        return render(request,'arama.html')
+        return render(request,'arama.html',{ 'mac' : mac })
 @login_required
 def giriskalite(request):
-        return render(request,'giris-kalite-kontrol.html')
+        return render(request,'giris-kalite-kontrol.html',{ 'mac' : mac })
+@login_required
+def kalitekontrol(request):
+        return render(request,'kalite-kontrol.html',{ 'mac' : mac })
 @login_required
 def isemri(request):
         if request.method == 'POST':
@@ -37,7 +40,7 @@ def isemri(request):
                         form.full_clean()
         else:
                 form = IsEmri()
-        return render(request,'is-emri.html', { 'form' : form , 'emirler': emirler})
+        return render(request,'is-emri.html', { 'form' : form , 'emirler': emirler , 'mac' : mac})
 
 #@login_required
 def yetkilendirme(request):
@@ -57,11 +60,11 @@ def yetkilendirme(request):
                         print(form.errors)
         else:
                 form = UserRegisterForm()
-        return render(request,'kullanici-yetkilendirme.html',{'form':form,'kullanicilar':kullanicilar})
+        return render(request,'kullanici-yetkilendirme.html',{'form':form,'kullanicilar':kullanicilar , 'mac' : mac})
 
 @login_required
 def performans(request):
-        return render(request,'performans.html')
+        return render(request,'performans.html',{ 'mac' : mac })
 @login_required
 def ulogout(request):
         logout(request)

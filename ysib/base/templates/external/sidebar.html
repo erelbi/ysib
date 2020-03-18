@@ -20,9 +20,15 @@
             <li {% if request.path == "/isemri" %} class="active"  {% endif %}>
                 <a href="/isemri"><i class="fa fa-th-large"></i> <span class="nav-label">İş Emri</span></a>
             </li>
-            <li {% if request.path == "/giriskalite" %} class="active"  {% endif %}>
-                <a href="/giriskalite"><i class="fa fa-check-square-o"></i> <span class="nav-label">Giriş Kalite Kontrol</span></a>
+            {% if mac == 'arm' %}
+            <li {% if request.path == "/kalitekontrol" %} class="active"  {% endif %}>
+                <a href="/kalitekontrol"><i class="fa fa-check-square-o"></i> <span class="nav-label">Kalite Kontrol</span></a>
             </li>
+            {% else %}
+            <li {% if request.path == "/giriskalite" %} class="active"  {% endif %}>
+                <a href="/giriskalite"><i class="fa fa-check-square-o"></i> <span class="nav-label">Üretim Kontrol</span></a>
+            </li>
+            {% endif %}
             <li {% if request.path == "/yetkilendirme" %} class="active"  {% endif %}>
                 <a href="/yetkilendirme"><i class="fa fa-users"></i> <span class="nav-label">Kullanıcı Yetkilendirme</span></a>
             </li>
@@ -33,7 +39,7 @@
                 <a href="/arama"><i class="fa fa-search"></i> <span class="nav-label">Arama</span></a>
             </li>
             <li>
-                <a href="/yazdır"><i class="fa fa-file-pdf-o"></i> <span class="nav-label">Yazdır</span> </a>
+                <a href="/yazdır"><i class="fa fa-file-pdf-o"></i> <span class="nav-label">{{mac}}</span> </a>
             </li>
         </ul>
 

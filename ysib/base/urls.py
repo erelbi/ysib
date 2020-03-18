@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('arama', views.arama, name='arama'),
     path('giriskalite', views.giriskalite, name='giriskalite'),
+    path('kalitekontrol', views.kalitekontrol, name='kalitekontrol'),
     path('isemri', views.isemri, name='isemri'),
     path('yetkilendirme', views.yetkilendirme, name='yetkilendirme'),
     path('performans', views.performans, name='performans'),
