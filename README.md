@@ -5,7 +5,7 @@ git clone https://github.com/huseyinerdall/ysib.git
 cd ysib
 ```
 2.
-```python
+```bash
 pip3 install requirements.txt
 ```
 3.
