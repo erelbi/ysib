@@ -6,11 +6,11 @@ cd ysib
 ```
 2.
 ```bash
-pip3 install requirements.txt
+source venv/bin/activate
 ```
 3.
 ```bash
-source venv/bin/activate
+pip3 install requirements.txt
 ```
 4.
 ```bash
