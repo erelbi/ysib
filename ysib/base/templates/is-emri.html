@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block style %}
 <link href="{% static 'css/bootstrap-tables.css' %}" rel="stylesheet">
 <link href="{% static 'css/skeyboard.css' %}" rel="stylesheet">
@@ -38,35 +39,26 @@
     İş emri oluşturma
   </div>
   <div class="card-body">
-    <form>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    <form action="" method="POST">
+      {% csrf_token %}
       <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="isemri">İş Emri</label>
-          <input type="text" class="form-control input" id="isemri">
-        </div>
-        <div class="form-group col-md-6">
-          <label for="baslangis">Başlangıç</label>
-          <input type="text" class="form-control input" id="baslangis">
-        </div>
+        <div class="form-group col-md-6 mb-0">{{ form.is_emri|as_crispy_field }}</div>
+        <div class="form-group col-md-6 mb-0">{{ form.tup_sayisi|as_crispy_field }}</div>
       </div>
       <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="bitis">Bitiş</label>
-          <input type="text" class="form-control input" id="bitis">
-        </div>
-        <div class="form-group col-md-6">
-          <label for="tupsayisi">Tüp Sayısı</label>
-          <input type="text" class="form-control input" id="tupsayisi">
-        </div>
+        <div class="form-group col-md-6 mb-0">{{ form.baslangic|as_crispy_field }}</div>
+        <div class="form-group col-md-6 mb-0">{{ form.bitis|as_crispy_field }}</div>  
       </div>
       <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="kullanici">Kullanıcı(Emri Veren)</label>
-          <input type="text" class="form-control input" id="kullanici">
-        </div>
-        </div>
-     
-      <button type="submit" class="btn btn-primary float-right">Emir Oluştur</button>
+        <div class="form-group col-md-6 mb-0">{{ form.emri_veren|as_crispy_field }}</div>
+        <div class="form-group col-md-6 mb-0" style="display: none;">{{ form.zaman|as_crispy_field }}</div>
+      </div>
+      <button type="submit" class="btn btn-success">Kaydet</button>
     </form>
   </div>
 </div>
@@ -90,28 +82,24 @@
     <thead>
       <tr>
         <th data-field="isemri" data-filter-control="select" data-sortable="true">İş Emri</th>
-        <th data-field="tarih" data-filter-control="select" data-sortable="true">Tarih</th>
-        <th data-field="kullanici" data-filter-control="select" data-sortable="true">Kullanıcı</th>
+        <th data-field="tup_sayisi" data-filter-control="select" data-sortable="true">Tüp Sayısı</th>
+        <th data-field="baslangic" data-filter-control="select" data-sortable="true">Başlangıç</th>
+        <th data-field="bitis" data-filter-control="select" data-sortable="true">Bitiş</th>
+        <th data-field="amir" data-filter-control="select" data-sortable="true">Emri Veren</th>
+        <th data-field="zaman" data-filter-control="select" data-sortable="true">Zaman</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        
-        <td>İş emri 1</td>
-        <td>22/05/2020</td>
-        <td>Ali</td>
-      </tr>
-      <tr>
-        <td>İs Emri 2</td>
-        <td>23/04/2020</td>
-        <td>Veli</td>
-      </tr>
-      <tr>
-        <td>İs Emri 2</td>
-        <td>13/03/2020</td>
-        <td>Ahmet</td>
-      </tr>
-      
+      {% for emir in emirler %}
+        <tr>
+          <td>{{ emir.is_emri }}</td>
+          <td>{{ emir.tup_sayisi }}</td>
+          <td>{{ emir.baslangic }}</td>
+          <td>{{ emir.bitis }}</td>
+          <td>{{ emir.emri_veren }}</td>
+          <td>{{ emir.zaman }}</td>
+        </tr>
+      {% endfor %}
     </tbody>
     </table>
     </div>
@@ -133,7 +121,7 @@ let keyboard = new Keyboard({
   onKeyPress: button => onKeyPress(button)
 });
 
-document.querySelectorAll(".input").forEach(input => {
+document.querySelectorAll(".textinput").forEach(input => {
   input.addEventListener("focus", onInputFocus);
   // Optional: Use if you want to track input changes
   // made without simple-keyboard
@@ -141,7 +129,7 @@ document.querySelectorAll(".input").forEach(input => {
 });
 
 
-var els = document.querySelectorAll(".input");
+var els = document.querySelectorAll(".textinput");
 for (let i = 0; i < els.length; i++) {
   const element = els[i];
   element.addEventListener("focus", event => {
@@ -157,7 +145,7 @@ document.addEventListener("click", event => {
     // Target is not keyboard element
     event.target !== keyboard.keyboardDOM &&
     // Target is not the input
-    !event.target.classList.contains('input') &&
+    !event.target.classList.contains('textinput') &&
     // Target is not a keyboard button
     !event.target.classList.contains("hg-button")
   ) {
@@ -183,7 +171,7 @@ function onInputChange(event) {
 
 function onChange(input) {
   console.log("Input changed", input);
-  document.querySelector(selectedInput || ".input").value = input;
+  document.querySelector(selectedInput || ".textinput").value = input;
 }
 
 function onKeyPress(button) {

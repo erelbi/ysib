@@ -425,7 +425,7 @@
             return sprintf('Showing %s rows', totalRows);
         },
         formatSearch: function () {
-            return 'Search';
+            return 'Arama';
         },
         formatNoMatches: function () {
             return 'Eşleşen bir sonuç bulunamadı!';

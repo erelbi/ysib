@@ -2,11 +2,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block style %}
-<style>
-    tbody tr:hover{
-        background: rgba(217, 217, 217, 0.4);
-    }
-</style>
+<link href="{% static 'css/bootstrap-tables.css' %}" rel="stylesheet">
 <style>
     
   .simple-keyboard {
@@ -35,6 +31,10 @@ pointer-events: none;
 }
 
 </style>
+<style>
+
+
+</style>
 <link href="{% static 'css/skeyboard.css' %}" rel="stylesheet">
 {% endblock %}
 {% block content %}
@@ -56,6 +56,7 @@ pointer-events: none;
   </div>
   <div class="form-row">
     <div class="form-group col-md-6 mb-0">{{ form.last_name|as_crispy_field }}</div>
+    <div class="form-group col-md-6 mb-0" style="display: none;">{{ form.zaman|as_crispy_field }}</div>
   </div>
   <div class="form-row">
     <div class="form-group col-md-6 mb-0">{{ form.password1|as_crispy_field }}</div>
@@ -72,55 +73,37 @@ pointer-events: none;
     Kullanıcılar Tablosu
   </div>
   <div class="card-body">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>İsim</th>
-        <th>Tel</th>
-        <th>DTMF</th>
-        <th>Operations</th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+
+    <table id="kullaniciTablosu" 
+    data-toggle="table"
+    data-search="true"
+    data-filter-control="true" 
+    data-toolbar="#toolbar">
+<thead>
+ <tr>
+   <th data-field="isemri" data-filter-control="select" data-sortable="true">İsim</th>
+   <th data-field="tarih" data-filter-control="select" data-sortable="true">Soyisim</th>
+   <th data-field="kullanici" data-filter-control="select" data-sortable="true">Kullanıcı adı</th>
+   <th data-field="tarih" data-filter-control="select" data-sortable="true">Kayıt Tarihi</th>
+   <th data-field="operasyonlar">Operasyonlar</th>
+ </tr>
+</thead>
+<tbody>
+  {% for kullanici in kullanicilar %}
+    <tr>
+      <td>{{ kullanici.first_name }}</td>
+      <td>{{ kullanici.last_name }}</td>
+      <td>{{ kullanici.username }}</td>
+      <td>{{ kullanici.zaman }}</td>
+      <td></td>
+    </tr>
+  {% endfor %}
+</tbody>
+</table>
+
 </div>
 </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title"></h4>
-        </div>
-        <div class="modal-body">
-          <form action="#" enctype="multipart/form-data" method="POST">
-            <div class="form-group">
-              <label for="name">Name:</label>
-              <input type="name" class="form-control" id="name" placeholder="Enter name">
-            </div>
-            <div class="form-group">
-              <label for="phone">Phone:</label>
-              <input type="phone" class="form-control" id="phone" placeholder="Enter phone">
-            </div>
-            <div class="form-group">
-              <label for="dtmf">DTMF:</label>
-              <input type="dtmf" class="form-control" id="dtmf" placeholder="Enter dtmf">
-            </div>
-            <button type="submit" class="btn btn-success">Save</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
 {% endblock %}
 {% block script %}
 <script>
@@ -130,6 +113,29 @@ pointer-events: none;
     const element = document.getElementsByClassName('textinput')[i];
     element.setAttribute("autofocus","off")
   }
+</script>
+
+<script src="{% static 'js/bootstrap-tables.js' %}"></script>
+
+<script>
+  $(document).ready(function(){
+    $('#kullaniciTablosu').DataTable({
+      "paging": true,
+      "autoWidth": true,
+      "columnDefs": [{
+        targets: -1,
+        data : null,
+        defaultContent : ""
+      }],
+      "buttons": [
+          'csvHtml5',
+          'excelHtml5',
+          'pdfHtml5',
+          'print'
+        ]
+    });
+  })
+  
 </script>
 <script src="{% static 'js/skeyboard.js' %}"></script>
 <script>
@@ -225,91 +231,5 @@ function hideKeyboard() {
 }
 
 </script>
-<script>
-    var data = [{
-  "id": 1,
-  "Name": "Kamba",
-  "Phone": "30-(541)656-1685",
-  "DTMF": 757
-}, {
-  "id": 2,
-  "Name": "Feedmix",
-  "Phone": "967-(362)975-4248",
-  "DTMF": 198
-}, {
-  "id": 3,
-  "Name": "Thoughtstorm",
-  "Phone": "358-(619)930-2339",
-  "DTMF": 252
-}, {
-  "id": 4,
-  "Name": "Shufflebeat",
-  "Phone": "86-(776)437-7364",
-  "DTMF": 689
-}, {
-  "id": 5,
-  "Name": "Reallinks",
-  "Phone": "55-(689)180-3162",
-  "DTMF": 173
-}, {
-  "id": 6,
-  "Name": "Digitube",
-  "Phone": "1-(504)256-2986",
-  "DTMF": 799
-}, {
-  "id": 7,
-  "Name": "Nlounge",
-  "Phone": "62-(928)582-6766",
-  "DTMF": 477
-}, {
-  "id": 8,
-  "Name": "Aimbu",
-  "Phone": "33-(573)429-4209",
-  "DTMF": 445
-}, {
-  "id": 9,
-  "Name": "Mydo",
-  "Phone": "370-(167)136-2174",
-  "DTMF": 854
-}, {
-  "id": 10,
-  "Name": "Tagcat",
-  "Phone": "46-(159)429-8509",
-  "DTMF": 859
-}];
-/* 
-Dynamic creation of table is not the best practice...
-Better way to clone existing table and fill it with data.
-*/
-$(data).each(function(i, elem) {
-  $('.table').append('<tr><td>' + elem['Name'] +
-    '</td><td>' + elem['Phone'] + '</td><td>' +
-    elem['DTMF'] + '</td><td>' +
-    '\
-<a href="#edit=' + elem['id'] + '" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal"> \
-      <span class="fa fa-edit"></span>\
-    </a> \
-<a href="#delete=' + elem['id'] + '" class="btn btn-danger btn-xs"> \
-      <span class="fa fa-trash-o"></span>\
-    </a> \
-                     </td></tr>')
-});
 
-$('.btn-success').on('click', function(){
-  // Get all TD from the cliked Button
-  var td = $(this).parents('tr').find('td:lt(3)');
-  // $td.each(function(i){
-  // Only the $() makes this td Object of DOM
-    $('#name').val($(td[0]).text());
-    $('#phone').val($(td[1]).text());
-    $('#dtmf').val($(td[2]).text());
-  // })
-});
-
-// Delete Button Done!!!
-$('.btn-danger').on('click', function(){
-  $(this).parents('tr').remove();
-})
-
-</script>
 {% endblock %}
