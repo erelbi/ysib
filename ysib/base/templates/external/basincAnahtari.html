@@ -1,0 +1,79 @@
+{% load static %}
+{% block basinc %}
+<form class="form-inline">
+    <div class="form-group mb-2">
+      <h4>Bağlı Cihazlar</h4>
+    </div>
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="cihazlar" class="sr-only">Cihazlar</label>
+      <select type="password" class="form-control custom-select" id="cihazlar">
+        <option value="1">Cihaz 1</option>
+        <option value="2">Cihaz 2</option>
+        <option value="3">Cihaz 3</option>
+        <option value="4">Cihaz 4</option>
+        <option value="5">Cihaz 5</option>
+        <option value="6">Cihaz 6</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Bağlan</button>
+  </form>
+  <hr>
+  <div class="row">
+    <form action="" class="form-row col-md-7">
+      <span class="col-md-6">Serial No.</span>
+      <span class="col-md-3">Kapatma</span>
+      <span class="col-md-3">Açma</span>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+    </form>
+    <div class="col-md-5">
+      <button type="button" class="btn btn-success btn-lg btn-huge">BAŞLAT</button>
+      <style>canvas#gauge{ width: 100% !important;height: auto;margin-left: 20px; }</style>
+      <canvas data-type="radial-gauge" id="gauge"
+        data-units="Bar"
+        data-min-value="0"
+        data-max-value="40"
+        data-major-ticks="0,5,10,15,20,25,30,35,40"
+        data-minor-ticks="2"
+        data-stroke-ticks="true"
+        data-highlights='[
+            {"from": 30, "to": 40, "color": "rgba(200, 50, 50, .75)"}
+        ]'
+        data-color-plate="#fff"
+        data-border-shadow-width="0"
+        data-borders="false"
+        data-needle-type="arrow"
+        data-needle-width="2"
+        data-needle-circle-size="7"
+        data-needle-circle-outer="true"
+        data-needle-circle-inner="false"
+        data-animation-duration="1500"
+        data-animation-rule="linear"
+    ></canvas>
+    </div>
+  </div>
+  <hr>
+  <div class="col-md-4 mx-auto"><button type="button" class="btn btn-success btn-lg btn-block">KAYDET</button></div>
+{% endblock %}

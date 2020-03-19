@@ -28,7 +28,6 @@
 </thead>
 <tbody>
   <tr>
-    
     <td>İş emri 1</td>
     <td>23687</td>
     <td>2738</td>
@@ -55,17 +54,15 @@
     <td>1232</td>
     <td>13/32</td>
   </tr>
-  
 </tbody>
 </table>
 
 {% endblock %}
 {% block script %}
 <script src="{% static 'js/bootstrap-tables.js' %}"></script>
-<script src="{% static 'js/editable.js' %}"></script>
 <script src="{% static 'js/filter.js' %}"></script>
 <script>
-  //exporte les données sélectionnées
+  
 var $table = $('#table');
     $(function () {
         $('#toolbar').find('select').change(function () {
@@ -79,6 +76,9 @@ var $table = $('#table');
 
 	$(trBoldBlue).on("click", "tr", function (){
 			$(this).toggleClass("bold-blue");
-	});
+  });
+  //tablo search input için klavye açtırmak için
+  setTimeout(()=>{document.querySelector('.search>input').classList.add('textinput')},500)
+  
 </script>
 {% endblock %}

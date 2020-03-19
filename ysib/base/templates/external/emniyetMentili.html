@@ -1,0 +1,38 @@
+{% load static %}
+{% block emniyetmentili %}
+<form action="" id="emniyet-mentili">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="serino">Seri No</label>
+            <input type="text" class="form-control" id="serino">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="baslangic">Başlangıç</label>
+            <input type="text" class="form-control" id="baslangic">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="bitis">Bitiş</label>
+            <input type="text" class="form-control" id="bitis">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="lotno">Lot No(Manuel)</label>
+            <input type="text" class="form-control" id="lotno">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="bitis">Lot No</label>
+            <select name="lotno" id="bitis" class="form-control">
+                <option value="1000">1000</option>
+                <option value="1001">1001</option>
+                <option value="1002">1002</option>
+                <option value="1003">1003</option>
+                <option value="1004">1004</option>
+            </select>
+        </div>
+    </div>
+    <button class="btn btn-success btn-lg">KAYDET</button>
+</form>
+{% endblock %}

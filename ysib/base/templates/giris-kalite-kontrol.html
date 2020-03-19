@@ -79,7 +79,8 @@
 <div class="tab-wrapper">
   
     <ul class="tab-menu">
-      <li class="active">Manometre</li>
+      <li class="active">Genel Bakış</li>
+      <li>Manometre</li>
       <li>Basınç Anahtarı</li>
       <li>Alt Nipel</li>
       <li>Üst Nipel</li>
@@ -90,100 +91,26 @@
     <div class="tab-content">
       <!--giriş kalite kontrol-->
       <div class="row">
-        <div class="col-md-5">
-          <h3>İş emri 1</h3>
-          <small>22/05/2020</small>
-          <small>Oğuzhan Titiz</small>
-          <div id="bar"></div>
-        </div>
-        <div class="col-md-7">
-
-          <div id="pie"></div>
-        </div>
+        {% include 'external/genelBakis.html' %}
       </div>
-      <!--end of giriş kalite kontrol-->
       <div>
-        <form class="form-inline">
-          <div class="form-group mb-2">
-            <h4>Bağlı Cihazlar</h4>
-          </div>
-          <div class="form-group mx-sm-3 mb-2">
-            <label for="cihazlar" class="sr-only">Cihazlar</label>
-            <select type="password" class="form-control custom-select" id="cihazlar">
-              <option value="1">Cihaz 1</option>
-              <option value="2">Cihaz 2</option>
-              <option value="3">Cihaz 3</option>
-              <option value="4">Cihaz 4</option>
-              <option value="5">Cihaz 5</option>
-              <option value="6">Cihaz 6</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary mb-2">Bağlan</button>
-        </form>
-        <hr>
-        <div class="row">
-          <form action="" class="form-row col-md-5">
-            <span class="col-md-6">Serial No.</span>
-            <span class="col-md-3">Kapatma</span>
-            <span class="col-md-3">Açma</span>
-            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-          </form>
-          <div class="col-md-2 pt-6"><button type="button" class="btn btn-success btn-lg btn-huge">BAŞLAT</button></div>
-          <div class="col-md-4">
-            <style>canvas#gauge{ width: 100% !important;height: auto;margin-left: 20px; }</style>
-            <canvas data-type="radial-gauge" id="gauge"
-              data-units="°C"
-              data-min-value="0"
-              data-max-value="140"
-              data-major-ticks="0,10,20,30,40,50,60,70,80,90,100,110,120,130,140"
-              data-minor-ticks="2"
-              data-stroke-ticks="true"
-              data-highlights='[
-                  {"from": 100, "to": 140, "color": "rgba(200, 50, 50, .75)"}
-              ]'
-              data-color-plate="#fff"
-              data-border-shadow-width="0"
-              data-borders="false"
-              data-needle-type="arrow"
-              data-needle-width="2"
-              data-needle-circle-size="7"
-              data-needle-circle-outer="true"
-              data-needle-circle-inner="false"
-              data-animation-duration="1500"
-              data-animation-rule="linear"
-          ></canvas>
-          </div>
-        </div>
-        <hr>
-        <div class="col-md-2 mx-auto"><button type="button" class="btn btn-success btn-lg btn-block">KAYDET</button></div>
+        {% include 'external/manometre.html' %}
       </div>
-      <div>c</div>
-      <div>d</div>
-      <div>s</div>
-      <div>f</div>
+      <div>
+       {% include 'external/basincAnahtari.html' %}
+      </div>
+      <div>
+        {% include 'external/altNipel.html' %}
+      </div>
+      <div>
+        {% include 'external/ustNipel.html' %}
+      </div>
+      <div>
+        {% include 'external/bakirMembran.html' %}
+      </div>
+      <div>
+        {% include 'external/emniyetMentili.html' %}
+      </div>
     </div><!-- //tab-content -->
     
   </div><!-- //tab-wrapper -->
@@ -321,33 +248,27 @@ function hideKeyboard() {
   let w = document.getElementById("gauge").offsetWidth;
   var gauge = new RadialGauge({
     renderTo: 'canvas-id',
-    units: "Km/h",
+    units: "Bar",
     minValue: 0,
     maxValue: 140,
     height: w - 100,
     majorTicks: [
         "0",
+        "5",
         "10",
+        "15",
         "20",
+        "25",
         "30",
-        "40",
-        "50",
-        "60",
-        "70",
-        "80",
-        "90",
-        "100",
-        "110",
-        "120",
-        "130",
-        "140"
+        "35",
+        "40"
     ],
     minorTicks: 2,
     strokeTicks: true,
     highlights: [
         {
-            "from": 100,
-            "to": 140,
+            "from": 30,
+            "to": 40,
             "color": "rgba(200, 50, 50, .75)"
         }
     ],

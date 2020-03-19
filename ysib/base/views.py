@@ -7,11 +7,9 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from .models import Emir
 from django.contrib.auth.decorators import login_required
-import os
+import platform
 # Create your views here.
-#kullanicilar = User.objects.all()
-#emirler = Emir.objects.all()
-mac = os.uname()[4][:3] # eğer device res pi ise 'arm' döner
+mac = platform.machine()[:3] # eğer device ras pi ise 'arm' döner
 @login_required
 def index(request):
         return render(request,'index.html', { 'mac' : mac })

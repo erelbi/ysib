@@ -1,0 +1,53 @@
+{% load static %}
+{% block altnipel %}
+<form action="" id="alt-nipel">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="serino">Seri No</label>
+            <input type="text" class="form-control" id="serino">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="baslangic">Başlangıç</label>
+            <input type="text" class="form-control" id="baslangic">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="bitis">Bitiş</label>
+            <input type="text" class="form-control" id="bitis">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="lotno">Lot No(Manuel)</label>
+            <input type="text" class="form-control" id="lotno">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="bitis">Lot No</label>
+            <select name="lotno" id="bitis" class="form-control">
+                <option value="1000">1000</option>
+                <option value="1001">1001</option>
+                <option value="1002">1002</option>
+                <option value="1003">1003</option>
+                <option value="1004">1004</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="custom-control custom-radio col-md-1">
+            <input type="radio" class="custom-control-input" id="defaultUnchecked" name="kabul">
+            <label class="custom-control-label" for="defaultUnchecked">Kabul</label>
+          </div>
+          <div class="custom-control custom-radio col-md-2">
+            <input type="radio" class="custom-control-input" id="defaultChecked" name="kabul" checked>
+            <label class="custom-control-label" for="defaultChecked">Şartlı kabul</label>
+          </div>
+          <div class="custom-control custom-radio col-md-1 mb-4">
+            <input type="radio" class="custom-control-input" name="kabul" id="red">
+            <label class="custom-control-label" for="red">Ret</label>
+          </div>
+    </div>
+    
+    <button class="btn btn-success btn-lg">KAYDET</button>
+</form>
+{% endblock %}
