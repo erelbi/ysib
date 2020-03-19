@@ -22,11 +22,12 @@
             </li>
             {% if mac == 'arm' %}
             <li {% if request.path == "/kalitekontrol" %} class="active"  {% endif %}>
-                <a href="/kalitekontrol"><i class="fa fa-check-square-o"></i> <span class="nav-label">Kalite Kontrol</span></a>
+                <a href="/kalitekontrol"><i class="fa fa-check-square-o"></i> <span class="nav-label">Üretim Kontrol</span></a>
             </li>
             {% else %}
+            
             <li {% if request.path == "/giriskalite" %} class="active"  {% endif %}>
-                <a href="/giriskalite"><i class="fa fa-check-square-o"></i> <span class="nav-label">Üretim Kontrol</span></a>
+                <a href="/giriskalite"><i class="fa fa-check-square-o"></i> <span class="nav-label">Kalite Kontrol</span></a>
             </li>
             {% endif %}
             <li {% if request.path == "/yetkilendirme" %} class="active"  {% endif %}>

@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 {% block style %}
-<link href="{% static 'css/datatables.min.css' %}" rel="stylesheet">
 <style>
 
 .tab-wrapper {
@@ -46,9 +45,34 @@
   border-color: rgba(0, 0, 0, .3);
   border-style: solid;
 }
-
-
 </style>
+{% if mac == 'arm' %}
+<style> 
+  .simple-keyboard {
+    /*max-width: 850px;*/
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    margin-bottom:0px;
+    width: 100%;
+    opacity: 0;
+    transition: margin-top 0s ease-in-out 0.3s, opacity 0.3s ease-in-out;
+    z-index:9999;
+    height: 230px;
+    display: none;
+}
+.show-keyboard {
+  display : block;
+  opacity: 1;
+  margin-top: 0;
+}
+.hg-button span {
+  pointer-events: none;
+}
+</style>
+<link href="{% static 'css/skeyboard.css' %}" rel="stylesheet">
+{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -56,12 +80,12 @@
   
     <ul class="tab-menu">
       <li class="active">Genel Bakış</li>
-      <li>Valf Montaj</li>
-      <li>Valf Test Ünitesi</li>
-      <li>Valf-Gövde Montaj Ünitesi</li>
-      <li>FM200 Azot Dolum Ünitesi</li>
-      <li>Havuz Test Ünitesi</li>
-      <li>Final Montaj</li>
+      <li>Alt Nipel</li>
+      <li>Üst Nipel</li>
+      <li>Manometre Kontrol</li>
+      <li>Switch Test</li>
+      <li>Bakır Membran</li>
+      <li>Sıcaklık Kontrol</li>
     </ul>
     
     <div class="tab-content">
@@ -82,7 +106,84 @@
       <div>b</div>
       <div>c</div>
       <div>d</div>
-      <div>e</div>
+      <div>
+        <form class="form-inline">
+          <div class="form-group mb-2">
+            <h4>Bağlı Cihazlar</h4>
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <label for="cihazlar" class="sr-only">Cihazlar</label>
+            <select type="password" class="form-control custom-select" id="cihazlar">
+              <option value="1">Cihaz 1</option>
+              <option value="2">Cihaz 2</option>
+              <option value="3">Cihaz 3</option>
+              <option value="4">Cihaz 4</option>
+              <option value="5">Cihaz 5</option>
+              <option value="6">Cihaz 6</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary mb-2">Bağlan</button>
+        </form>
+        <hr>
+        <div class="row">
+          <form action="" class="form-row col-md-5">
+            <span class="col-md-6">Serial No.</span>
+            <span class="col-md-3">Kapatma</span>
+            <span class="col-md-3">Açma</span>
+            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+            <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+          </form>
+          <div class="col-md-2 pt-6"><button type="button" class="btn btn-success btn-lg btn-huge">BAŞLAT</button></div>
+          <div class="col-md-4">
+            <style>canvas#gauge{ width: 100% !important;height: auto;margin-left: 20px; }</style>
+            <canvas data-type="radial-gauge" id="gauge"
+              data-units="°C"
+              data-min-value="0"
+              data-max-value="140"
+              data-major-ticks="0,10,20,30,40,50,60,70,80,90,100,110,120,130,140"
+              data-minor-ticks="2"
+              data-stroke-ticks="true"
+              data-highlights='[
+                  {"from": 100, "to": 140, "color": "rgba(200, 50, 50, .75)"}
+              ]'
+              data-color-plate="#fff"
+              data-border-shadow-width="0"
+              data-borders="false"
+              data-needle-type="arrow"
+              data-needle-width="2"
+              data-needle-circle-size="7"
+              data-needle-circle-outer="true"
+              data-needle-circle-inner="false"
+              data-animation-duration="1500"
+              data-animation-rule="linear"
+          ></canvas>
+          </div>
+        </div>
+        <hr>
+        <div class="col-md-2 mx-auto"><button type="button" class="btn btn-success btn-lg btn-block">KAYDET</button></div>
+      </div>
       <div>f</div>
       <div>g</div>
     </div><!-- //tab-content -->
@@ -92,7 +193,99 @@
   
 {% endblock %}
 {% block script %}
-<script src="{% static 'js/datatables.min.js' %}"></script>
+{% if mac == 'arm' %}
+<script src="{% static 'js/skeyboard.js' %}"></script>
+<script>
+
+let Keyboard = window.SimpleKeyboard.default;
+let selectedInput;
+
+let keyboard = new Keyboard({
+  onChange: input => onChange(input),
+  onKeyPress: button => onKeyPress(button)
+});
+
+document.querySelectorAll(".textinput").forEach(input => {
+  input.addEventListener("focus", onInputFocus);
+  // Optional: Use if you want to track input changes
+  // made without simple-keyboard
+  input.addEventListener("input", onInputChange);
+});
+
+
+var els = document.querySelectorAll(".textinput");
+for (let i = 0; i < els.length; i++) {
+  const element = els[i];
+  element.addEventListener("focus", event => {
+    //keyboard.keyboardDOM.style.top = window.scrollY + screen.availHeight - 330 + "px";
+    keyboard.keyboardDOM.classList.add("show-keyboard");
+  });
+}
+
+
+
+document.addEventListener("click", event => {
+  if (
+    // Target is not keyboard element
+    event.target !== keyboard.keyboardDOM &&
+    // Target is not the input
+    !event.target.classList.contains('textinput') &&
+    // Target is not a keyboard button
+    !event.target.classList.contains("hg-button")
+  ) {
+    hideKeyboard();
+  }
+});
+
+
+function onInputFocus(event) {
+  selectedInput = `#${event.target.id}`;
+
+  keyboard.setOptions({
+    inputName: event.target.id
+  });
+}
+
+function onInputChange(event) {
+  keyboard.setInput(event.target.value, event.target.id);
+}
+
+function onChange(input) {
+  console.log("Input changed", input);
+  document.querySelector(selectedInput || ".textinput").value = input;
+}
+
+function onKeyPress(button) {
+  console.log("Button pressed", button);
+
+  /**
+   * Shift functionality
+   */
+  if (button === "{lock}" || button === "{shift}") handleShiftButton();
+}
+
+function handleShiftButton() {
+  let currentLayout = keyboard.options.layoutName;
+  let shiftToggle = currentLayout === "default" ? "shift" : "default";
+
+  keyboard.setOptions({
+    layoutName: shiftToggle
+  });
+}
+
+
+
+
+function showKeyboard() {
+  keyboard.keyboardDOM.classList.add("show-keyboard");
+}
+
+function hideKeyboard() {
+  keyboard.keyboardDOM.classList.remove("show-keyboard");
+}
+
+</script>
+{% endif %}
 <script>
       $(document).ready(function() {
   
@@ -124,6 +317,53 @@
   });
 
 });//end ready
+</script>
+<script src="{% static 'js/gauge.min.js' %}"></script>
+<script>
+  let w = document.getElementById("gauge").offsetWidth;
+  var gauge = new RadialGauge({
+    renderTo: 'canvas-id',
+    units: "Km/h",
+    minValue: 0,
+    maxValue: 140,
+    height: w - 100,
+    majorTicks: [
+        "0",
+        "10",
+        "20",
+        "30",
+        "40",
+        "50",
+        "60",
+        "70",
+        "80",
+        "90",
+        "100",
+        "110",
+        "120",
+        "130",
+        "140"
+    ],
+    minorTicks: 2,
+    strokeTicks: true,
+    highlights: [
+        {
+            "from": 100,
+            "to": 140,
+            "color": "rgba(200, 50, 50, .75)"
+        }
+    ],
+    colorPlate: "#fff",
+    borderShadowWidth: 0,
+    borders: false,
+    needleType: "arrow",
+    needleWidth: 2,
+    needleCircleSize: 7,
+    needleCircleOuter: true,
+    needleCircleInner: false,
+    animationDuration: 1500,
+    animationRule: "linear"
+}).draw();
 </script>
 <script src="{% static 'js/apexchart.js' %}"></script>
 <script>

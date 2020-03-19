@@ -9,8 +9,8 @@ from .models import Emir
 from django.contrib.auth.decorators import login_required
 import os
 # Create your views here.
-kullanicilar = User.objects.all()
-emirler = Emir.objects.all()
+#kullanicilar = User.objects.all()
+#emirler = Emir.objects.all()
 mac = os.uname()[4][:3] # eğer device res pi ise 'arm' döner
 @login_required
 def index(request):
@@ -22,10 +22,11 @@ def arama(request):
 def giriskalite(request):
         return render(request,'giris-kalite-kontrol.html',{ 'mac' : mac })
 @login_required
-def kalitekontrol(request):
-        return render(request,'kalite-kontrol.html',{ 'mac' : mac })
+def uretimkontrol(request):
+        return render(request,'uretim-kontrol.html',{ 'mac' : mac })
 @login_required
 def isemri(request):
+        emirler = Emir.objects.all()
         if request.method == 'POST':
                 form = IsEmri(request.POST)
                 if form.is_valid():
@@ -44,6 +45,7 @@ def isemri(request):
 
 #@login_required
 def yetkilendirme(request):
+        kullanicilar = User.objects.all()
         if request.method == 'POST':
                 form = UserRegisterForm(request.POST)
                 if form.is_valid(): #and profile_form.is_valid():

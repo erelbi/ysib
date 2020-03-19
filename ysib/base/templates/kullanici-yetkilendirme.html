@@ -3,15 +3,15 @@
 {% load crispy_forms_tags %}
 {% block style %}
 <link href="{% static 'css/bootstrap-tables.css' %}" rel="stylesheet">
-<style>
-    
+{% if mac == 'arm' %}
+<style> 
   .simple-keyboard {
-/*max-width: 850px;*/
+    /*max-width: 850px;*/
     position:fixed;
-        bottom:0px;
-        left:0px;
-        right:0px;
-        margin-bottom:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    margin-bottom:0px;
     width: 100%;
     opacity: 0;
     transition: margin-top 0s ease-in-out 0.3s, opacity 0.3s ease-in-out;
@@ -19,23 +19,17 @@
     height: 230px;
     display: none;
 }
-
 .show-keyboard {
-display : block;
-opacity: 1;
-margin-top: 0;
+  display : block;
+  opacity: 1;
+  margin-top: 0;
 }
-
 .hg-button span {
-pointer-events: none;
+  pointer-events: none;
 }
-
-</style>
-<style>
-
-
 </style>
 <link href="{% static 'css/skeyboard.css' %}" rel="stylesheet">
+{% endif %}
 {% endblock %}
 {% block content %}
 <div class="card">
@@ -81,8 +75,8 @@ pointer-events: none;
     data-toolbar="#toolbar">
 <thead>
  <tr>
-   <th data-field="isemri" data-filter-control="select" data-sortable="true">İsim</th>
-   <th data-field="tarih" data-filter-control="select" data-sortable="true">Soyisim</th>
+   <th data-field="isim" data-filter-control="select" data-sortable="true">İsim</th>
+   <th data-field="soyisim" data-filter-control="select" data-sortable="true">Soyisim</th>
    <th data-field="kullanici" data-filter-control="select" data-sortable="true">Kullanıcı adı</th>
    <th data-field="tarih" data-filter-control="select" data-sortable="true">Kayıt Tarihi</th>
    <th data-field="operasyonlar">Operasyonlar</th>
@@ -116,27 +110,7 @@ pointer-events: none;
 </script>
 
 <script src="{% static 'js/bootstrap-tables.js' %}"></script>
-
-<script>
-  $(document).ready(function(){
-    $('#kullaniciTablosu').DataTable({
-      "paging": true,
-      "autoWidth": true,
-      "columnDefs": [{
-        targets: -1,
-        data : null,
-        defaultContent : ""
-      }],
-      "buttons": [
-          'csvHtml5',
-          'excelHtml5',
-          'pdfHtml5',
-          'print'
-        ]
-    });
-  })
-  
-</script>
+{% if mac == 'arm' %}
 <script src="{% static 'js/skeyboard.js' %}"></script>
 <script>
 
@@ -231,5 +205,5 @@ function hideKeyboard() {
 }
 
 </script>
-
+{% endif %}
 {% endblock %}

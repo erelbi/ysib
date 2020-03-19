@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 {% block style %}
 <link href="{% static 'css/bootstrap-tables.css' %}" rel="stylesheet">
+{% if mac == 'arm' %}
 <link href="{% static 'css/skeyboard.css' %}" rel="stylesheet">
 <style>
     
@@ -32,6 +33,7 @@
 }
 
 </style>
+{% endif %}
 {% endblock %}
 {% block content %}
 <div class="card">
@@ -110,6 +112,7 @@
 {% endblock %}
 {% block script %}
 <script src="{% static 'js/bootstrap-tables.js' %}"></script>
+{% if mac == 'arm' %}
 <script src="{% static 'js/skeyboard.js' %}"></script>
 <script>
 
@@ -204,5 +207,5 @@ function hideKeyboard() {
 }
 
 </script>
-
+{% endif %}
 {% endblock %}
