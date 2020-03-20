@@ -33,12 +33,42 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                      {% if user.is_authenticated %}
+                     <li>
+                        <span class="m-r-sm text-muted welcome-message">Kullanıcı : {{ request.user }}</span>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-bell"></i>  <span class="label label-danger">1</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            <li>
+                                <a href="mailbox.html" class="dropdown-item">
+                                    <div>
+                                        <i class="fa fa-envelope fa-fw"></i> İş Emri Geldi!
+                                        <span class="float-right text-muted small">2 dakika önce</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="dropdown-divider"></li>
+                            <li>
+                                <div class="text-center link-block">
+                                    <a href="notifications.html" class="dropdown-item">
+                                        <strong>Bütün iş emirlerini gör</strong>
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
                     <li>
                         <a href="/logout">
                             <i class="fa fa-sign-out"></i> Sistem Çıkış
                         </a>
                     </li>
                     {% else %}
+                    <li>
+                        <span class="m-r-sm text-muted welcome-message">Kayıtsız kullanıcı</span>
+                    </li>
                     <li>
                         <a href="/logout">
                             <i class="fa fa-sign-in"></i> Sistem Giriş

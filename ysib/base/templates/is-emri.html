@@ -58,7 +58,7 @@
       </div>
       <div class="form-row">
         <div class="form-group col-md-6 mb-0">{{ form.emri_veren|as_crispy_field }}</div>
-        <div class="form-group col-md-6 mb-0" style="display: none;">{{ form.zaman|as_crispy_field }}</div>
+        <div class="form-group col-md-6 mb-0" style="display: none;">{{ form.emir_zamani|as_crispy_field }}</div>
       </div>
       <button type="submit" class="btn btn-success">Kaydet</button>
     </form>
@@ -99,7 +99,7 @@
           <td>{{ emir.baslangic }}</td>
           <td>{{ emir.bitis }}</td>
           <td>{{ emir.emri_veren }}</td>
-          <td>{{ emir.zaman }}</td>
+          <td>{{ emir.emir_zamani }}</td>
         </tr>
       {% endfor %}
     </tbody>

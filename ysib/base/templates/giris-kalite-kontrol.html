@@ -245,13 +245,13 @@ function hideKeyboard() {
 </script>
 <script src="{% static 'js/gauge.min.js' %}"></script>
 <script>
-  let w = document.getElementById("gauge").offsetWidth;
+  let w = document.getElementById("basinc-gauge").offsetWidth;
   var gauge = new RadialGauge({
-    renderTo: 'canvas-id',
+    renderTo: 'basinc-gauge',
     units: "Bar",
     minValue: 0,
-    maxValue: 140,
-    height: w - 100,
+    maxValue: 40,
+    //height: w - 100,
     majorTicks: [
         "0",
         "5",
@@ -280,9 +280,62 @@ function hideKeyboard() {
     needleCircleSize: 7,
     needleCircleOuter: true,
     needleCircleInner: false,
-    animationDuration: 1500,
+    animationDuration: 100,
     animationRule: "linear"
 }).draw();
+</script>
+<script>
+
+var gauge2 = new RadialGauge({
+    renderTo: 'mano-gauge',
+    units: "Bar",
+    minValue: 0,
+    maxValue: 40,
+    //height: w - 100,
+    majorTicks: [
+        "0",
+        "5",
+        "10",
+        "15",
+        "20",
+        "25",
+        "30",
+        "35",
+        "40"
+    ],
+    minorTicks: 2,
+    strokeTicks: true,
+    highlights: [
+        {
+            "from": 30,
+            "to": 40,
+            "color": "rgba(200, 50, 50, .75)"
+        }
+    ],
+    colorPlate: "#fff",
+    borderShadowWidth: 0,
+    borders: false,
+    needleType: "arrow",
+    needleWidth: 2,
+    needleCircleSize: 7,
+    needleCircleOuter: true,
+    needleCircleInner: false,
+    animationDuration: 100,
+    animationRule: "linear"
+}).draw();
+  setInterval(()=>{
+    $.ajax(
+        {
+          type: "GET",
+          url: 'https://www.random.org/integers/?num=1&min=1&max=40&col=1&base=10&format=plain&rnd=new.php',
+          success: function (x){
+            gauge.value = x;
+            gauge2.value = x;
+          },
+        }
+       );
+  },1000)
+   
 </script>
 <script src="{% static 'js/apexchart.js' %}"></script>
 <script>
