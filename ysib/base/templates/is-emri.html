@@ -49,15 +49,16 @@
     <form action="" method="POST">
       {% csrf_token %}
       <div class="form-row">
-        <div class="form-group col-md-6 mb-0">{{ form.is_emri|as_crispy_field }}</div>
-        <div class="form-group col-md-6 mb-0">{{ form.tup_sayisi|as_crispy_field }}</div>
+        <div class="form-group col-md-4 mb-0">{{ form.is_emri|as_crispy_field }}</div>
+        <div class="form-group col-md-4 mb-0">{{ form.tup_sayisi|as_crispy_field }}</div>
+        <div class="form-group col-md-4 mb-0">{{ form.urun_kodu|as_crispy_field }}</div>
       </div>
       <div class="form-row">
         <div class="form-group col-md-6 mb-0">{{ form.baslangic|as_crispy_field }}</div>
         <div class="form-group col-md-6 mb-0">{{ form.bitis|as_crispy_field }}</div>  
       </div>
       <div class="form-row">
-        <div class="form-group col-md-6 mb-0">{{ form.emri_veren|as_crispy_field }}</div>
+        <div class="form-group col-md-6 mb-0" style="display: none;">{{ form.emri_veren|as_crispy_field }}</div>
         <div class="form-group col-md-6 mb-0" style="display: none;">{{ form.emir_zamani|as_crispy_field }}</div>
       </div>
       <button type="submit" class="btn btn-success">Kaydet</button>
@@ -88,7 +89,7 @@
         <th data-field="baslangic" data-filter-control="select" data-sortable="true">Başlangıç</th>
         <th data-field="bitis" data-filter-control="select" data-sortable="true">Bitiş</th>
         <th data-field="amir" data-filter-control="select" data-sortable="true">Emri Veren</th>
-        <th data-field="zaman" data-filter-control="select" data-sortable="true">Zaman</th>
+        <th data-field="zaman" data-filter-control="select" data-sortable="true">Oluşturulma Zamanı</th>
       </tr>
     </thead>
     <tbody>

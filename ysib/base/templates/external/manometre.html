@@ -3,7 +3,7 @@
 <h3>MANOMETRE TEST PROGRAMI</h3>
 <hr>
 <div class="row">
-  <form action="" class="form-row col-md-7">
+  <form action="" class="form-row col-md-8">
     <span class="col-md-5 pl-0">Manometre Ürün No.</span>
     <span class="col-md-5 pl-0">Manometre üzerinde okunan değer</span>
     <span class="col-md-1 pl-0">OK</span>
@@ -42,11 +42,10 @@
     <div class="form-group col-md-1"><input type="radio" id="h-" name="8" class="form-control custom-control-input"><label class="custom-control-label" for="h-"></label></div>
   </form>
   
-  <div class="col-md-5">
+  <div class="col-md-4">
     <button type="button" class="btn btn-success btn-lg btn-huge">BAŞLAT</button>
-    <style>canvas#gauge{ width: 100% !important;height: auto;margin-left: 20px; }</style>
+    <style>canvas{ width: 100% !important;height: auto;margin-left: 20px; }</style>
     <canvas data-type="radial-gauge" id="mano-gauge"
-      data-units="Bar"
       data-min-value="0"
       data-max-value="40"
       data-minor-ticks="2"
@@ -59,7 +58,6 @@
       data-needle-circle-size="7"
       data-needle-circle-outer="true"
       data-needle-circle-inner="false"
-      data-animation-duration="1500"
       data-animation-rule="linear"
   ></canvas>
   </div>

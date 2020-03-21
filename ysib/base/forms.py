@@ -2,12 +2,13 @@ from django import forms
 #from django.contrib.auth import login , authenticate
 from .models import UserProfileInfo
 from django.contrib.auth.models import User
-from .models import Emir
+from .models import Emir, User
 import datetime
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
-
-
+#kendi alanımız oluşturabiliyoruz:)
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(max_length=100, label='Kullanıcı Adı')
@@ -22,11 +23,16 @@ class UserRegisterForm(UserCreationForm):
 class IsEmri(forms.ModelForm):
     is_emri = forms.CharField(max_length=100, label='İş Emri')
     tup_sayisi = forms.CharField(max_length=100, label='Tüp Sayısı')
-    baslangic = forms.CharField(max_length=100, label='Başlangıç Zamanı')
-    bitis = forms.CharField(max_length=100, label='Bitiş Zamanı')
-    emri_veren = forms.CharField(max_length=100, label='Emri Veren')
+    urun_kodu = forms.CharField(max_length=100, label='Ürün Kodu')
+    baslangic = forms.DateInput()
+    bitis = forms.DateInput()
+    emri_veren = forms.CharField(label='Emri Veren')
     emir_zamani = forms.DateTimeField(initial=timezone.now())
 
     class Meta:
         model = Emir
+        widgets = {
+            'baslangic': DateInput(),
+            'bitis': DateInput(),
+        }
         fields = ('is_emri', 'baslangic', 'bitis', 'tup_sayisi','emri_veren','emir_zamani')

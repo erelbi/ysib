@@ -79,8 +79,7 @@
 <div class="tab-wrapper">
   
     <ul class="tab-menu">
-      <li class="active">Genel Bakış</li>
-      <li>Manometre</li>
+      <li class="active">Manometre</li>
       <li>Basınç Anahtarı</li>
       <li>Alt Nipel</li>
       <li>Üst Nipel</li>
@@ -90,9 +89,6 @@
     
     <div class="tab-content">
       <!--giriş kalite kontrol-->
-      <div class="row">
-        {% include 'external/genelBakis.html' %}
-      </div>
       <div>
         {% include 'external/manometre.html' %}
       </div>
@@ -248,9 +244,9 @@ function hideKeyboard() {
   let w = document.getElementById("basinc-gauge").offsetWidth;
   var gauge = new RadialGauge({
     renderTo: 'basinc-gauge',
-    units: "Bar",
-    minValue: 0,
-    maxValue: 40,
+    units: "bar",
+    minValue: 0.0,
+    maxValue: 40.0,
     //height: w - 100,
     majorTicks: [
         "0",
@@ -264,16 +260,14 @@ function hideKeyboard() {
         "40"
     ],
     minorTicks: 2,
-    strokeTicks: true,
-    highlights: [
-        {
-            "from": 30,
-            "to": 40,
-            "color": "rgba(200, 50, 50, .75)"
-        }
+    highlights : [
+      { from: 0, to: 40, color: '#fff' },
     ],
+    strokeTicks: true,
     colorPlate: "#fff",
     borderShadowWidth: 0,
+    valueInt : 1,
+    valueDec : 1,
     borders: false,
     needleType: "arrow",
     needleWidth: 2,
@@ -288,7 +282,7 @@ function hideKeyboard() {
 
 var gauge2 = new RadialGauge({
     renderTo: 'mano-gauge',
-    units: "Bar",
+    units: "bar",
     minValue: 0,
     maxValue: 40,
     //height: w - 100,
@@ -303,15 +297,13 @@ var gauge2 = new RadialGauge({
         "35",
         "40"
     ],
-    minorTicks: 2,
-    strokeTicks: true,
-    highlights: [
-        {
-            "from": 30,
-            "to": 40,
-            "color": "rgba(200, 50, 50, .75)"
-        }
+    highlights : [
+      { from: 0, to: 40, color: '#fff' },
     ],
+    minorTicks: 2,
+    valueInt : 1,
+    valueDec : 1,
+    strokeTicks: true,
     colorPlate: "#fff",
     borderShadowWidth: 0,
     borders: false,
@@ -337,55 +329,6 @@ var gauge2 = new RadialGauge({
   },1000)
    
 </script>
-<script src="{% static 'js/apexchart.js' %}"></script>
-<script>
-          var optionspie = {
-          series: [400, 430, 448,367,212,457,111],
-          chart: {
-          width: 500,
-          type: 'pie',
-        },
-        labels: ['Valf Montaj', 'Valf Test Ünitesi','Valf-Gövde Montaj Ünitesi','FM200-Azot Dolum Ünitesi','Havuz Test Ünitesi', 'Final Montaj'],
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 400
-            },
-            legend: {
-              position: 'bottom'
-            }
-          }
-        }]
-        };
 
-        var chart = new ApexCharts(document.querySelector("#pie"), optionspie);
-        chart.render();
-</script>
-<script>
-  var optionsbar = {
-          series: [{
-          data: [400, 430, 448,367,212,457,111]
-        }],
-          chart: {
-          type: 'bar',
-          height: 350
-        },
-        plotOptions: {
-          bar: {
-            horizontal: true,
-          }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        xaxis: {
-          categories: ['Valf Montaj', 'Valf Test Ünitesi','Valf-Gövde Montaj Ünitesi','FM200-Azot Dolum Ünitesi','Havuz Test Ünitesi', 'Final Montaj',
-          ],
-        }
-        };
 
-        var chart = new ApexCharts(document.querySelector("#bar"), optionsbar);
-        chart.render();
-</script>
 {% endblock %}

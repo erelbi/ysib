@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 {% block style %}
-<link href="{% static 'css/datatables.min.css' %}" rel="stylesheet">
 <style>
 
 .tab-wrapper {
@@ -46,45 +45,68 @@
   border-color: rgba(0, 0, 0, .3);
   border-style: solid;
 }
-
-
 </style>
+{% if mac == 'arm' %}
+<style> 
+  .simple-keyboard {
+    /*max-width: 850px;*/
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    margin-bottom:0px;
+    width: 100%;
+    opacity: 0;
+    transition: margin-top 0s ease-in-out 0.3s, opacity 0.3s ease-in-out;
+    z-index:9999;
+    height: 230px;
+    display: none;
+}
+.show-keyboard {
+  display : block;
+  opacity: 1;
+  margin-top: 0;
+}
+.hg-button span {
+  pointer-events: none;
+}
+</style>
+<link href="{% static 'css/skeyboard.css' %}" rel="stylesheet">
+{% endif %}
 {% endblock %}
 
 {% block content %}
 <div class="tab-wrapper">
   
     <ul class="tab-menu">
-      <li class="active">Genel Bakış</li>
-      <li>Valf Montaj</li>
-      <li>Valf Test Ünitesi</li>
-      <li>Valf-Gövde Montaj Ünitesi</li>
-      <li>FM200 Azot Dolum Ünitesi</li>
-      <li>Havuz Test Ünitesi</li>
+      <li class="active">Valf Montaj</li>
+      <li>Valf Test</li>
+      <li>Valf Gövde Montaj</li>
+      <li>FM200 Azot Dolumu</li>
+      <li>Havuz Test</li>
       <li>Final Montaj</li>
     </ul>
     
     <div class="tab-content">
       <!--giriş kalite kontrol-->
-      <div class="row">
-        <div class="col-md-5">
-          <h3>İş emri 1</h3>
-          <small>22/05/2020</small>
-          <small>Oğuzhan Titiz</small>
-          <div id="bar"></div>
-        </div>
-        <div class="col-md-7">
-
-          <div id="pie"></div>
-        </div>
+      <div>
+        {% include 'external/valfMontaj.html' %}
       </div>
-      <!--end of giriş kalite kontrol-->
-      <div>b</div>
-      <div>c</div>
-      <div>d</div>
-      <div>e</div>
-      <div>f</div>
-      <div>g</div>
+      <div>
+       {% include 'external/valfTest.html' %}
+      </div>
+      <div>
+        {% include 'external/valfGovdeMontaj.html' %}
+      </div>
+      <div>
+        {% include 'external/fm200AzotDolumu.html' %}
+      </div>
+      <div>
+        {% include 'external/havuzTest.html' %}
+      </div>
+      <div>
+        {% include 'external/finalMontaj.html' %}
+      </div>
     </div><!-- //tab-content -->
     
   </div><!-- //tab-wrapper -->
@@ -92,7 +114,99 @@
   
 {% endblock %}
 {% block script %}
-<script src="{% static 'js/datatables.min.js' %}"></script>
+{% if mac == 'arm' %}
+<script src="{% static 'js/skeyboard.js' %}"></script>
+<script>
+
+let Keyboard = window.SimpleKeyboard.default;
+let selectedInput;
+
+let keyboard = new Keyboard({
+  onChange: input => onChange(input),
+  onKeyPress: button => onKeyPress(button)
+});
+
+document.querySelectorAll(".textinput").forEach(input => {
+  input.addEventListener("focus", onInputFocus);
+  // Optional: Use if you want to track input changes
+  // made without simple-keyboard
+  input.addEventListener("input", onInputChange);
+});
+
+
+var els = document.querySelectorAll(".textinput");
+for (let i = 0; i < els.length; i++) {
+  const element = els[i];
+  element.addEventListener("focus", event => {
+    //keyboard.keyboardDOM.style.top = window.scrollY + screen.availHeight - 330 + "px";
+    keyboard.keyboardDOM.classList.add("show-keyboard");
+  });
+}
+
+
+
+document.addEventListener("click", event => {
+  if (
+    // Target is not keyboard element
+    event.target !== keyboard.keyboardDOM &&
+    // Target is not the input
+    !event.target.classList.contains('textinput') &&
+    // Target is not a keyboard button
+    !event.target.classList.contains("hg-button")
+  ) {
+    hideKeyboard();
+  }
+});
+
+
+function onInputFocus(event) {
+  selectedInput = `#${event.target.id}`;
+
+  keyboard.setOptions({
+    inputName: event.target.id
+  });
+}
+
+function onInputChange(event) {
+  keyboard.setInput(event.target.value, event.target.id);
+}
+
+function onChange(input) {
+  console.log("Input changed", input);
+  document.querySelector(selectedInput || ".textinput").value = input;
+}
+
+function onKeyPress(button) {
+  console.log("Button pressed", button);
+
+  /**
+   * Shift functionality
+   */
+  if (button === "{lock}" || button === "{shift}") handleShiftButton();
+}
+
+function handleShiftButton() {
+  let currentLayout = keyboard.options.layoutName;
+  let shiftToggle = currentLayout === "default" ? "shift" : "default";
+
+  keyboard.setOptions({
+    layoutName: shiftToggle
+  });
+}
+
+
+
+
+function showKeyboard() {
+  keyboard.keyboardDOM.classList.add("show-keyboard");
+}
+
+function hideKeyboard() {
+  keyboard.keyboardDOM.classList.remove("show-keyboard");
+}
+
+</script>
+{% endif %}
 <script>
       $(document).ready(function() {
   
@@ -124,6 +238,96 @@
   });
 
 });//end ready
+</script>
+<script src="{% static 'js/gauge.min.js' %}"></script>
+<script>
+  let w = document.getElementById("basinc-gauge").offsetWidth;
+  var gauge = new RadialGauge({
+    renderTo: 'basinc-gauge',
+    units: "bar",
+    minValue: 0.0,
+    maxValue: 40.0,
+    //height: w - 100,
+    majorTicks: [
+        "0",
+        "5",
+        "10",
+        "15",
+        "20",
+        "25",
+        "30",
+        "35",
+        "40"
+    ],
+    minorTicks: 2,
+    highlights : [
+      { from: 0, to: 40, color: '#fff' },
+    ],
+    strokeTicks: true,
+    colorPlate: "#fff",
+    borderShadowWidth: 0,
+    valueInt : 1,
+    valueDec : 1,
+    borders: false,
+    needleType: "arrow",
+    needleWidth: 2,
+    needleCircleSize: 7,
+    needleCircleOuter: true,
+    needleCircleInner: false,
+    animationDuration: 100,
+    animationRule: "linear"
+}).draw();
+</script>
+<script>
+
+var gauge2 = new RadialGauge({
+    renderTo: 'mano-gauge',
+    units: "bar",
+    minValue: 0,
+    maxValue: 40,
+    //height: w - 100,
+    majorTicks: [
+        "0",
+        "5",
+        "10",
+        "15",
+        "20",
+        "25",
+        "30",
+        "35",
+        "40"
+    ],
+    highlights : [
+      { from: 0, to: 40, color: '#fff' },
+    ],
+    minorTicks: 2,
+    valueInt : 1,
+    valueDec : 1,
+    strokeTicks: true,
+    colorPlate: "#fff",
+    borderShadowWidth: 0,
+    borders: false,
+    needleType: "arrow",
+    needleWidth: 2,
+    needleCircleSize: 7,
+    needleCircleOuter: true,
+    needleCircleInner: false,
+    animationDuration: 100,
+    animationRule: "linear"
+}).draw();
+  setInterval(()=>{
+    $.ajax(
+        {
+          type: "GET",
+          url: 'https://www.random.org/integers/?num=1&min=1&max=40&col=1&base=10&format=plain&rnd=new.php',
+          success: function (x){
+            gauge.value = x;
+            gauge2.value = x;
+          },
+        }
+       );
+  },1000)
+   
 </script>
 <script src="{% static 'js/apexchart.js' %}"></script>
 <script>

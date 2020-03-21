@@ -8,6 +8,8 @@ from django.utils import timezone
 zaman = models.DateField()
 zaman.contribute_to_class(User, 'zaman')
 
+
+
 class UserProfileInfo(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     def __str__(self):
@@ -16,8 +18,9 @@ class UserProfileInfo(models.Model):
 class Emir(models.Model):
     is_emri = models.CharField(max_length=100)
     tup_sayisi = models.CharField(max_length=100)
-    baslangic = models.CharField(max_length=100)
-    bitis = models.CharField(max_length=100)
+    urun_kodu = models.CharField(max_length=100)
+    baslangic = models.DateField(default=timezone.now())
+    bitis = models.DateField(default=timezone.now())
     emri_veren = models.CharField(max_length=100)
     emir_zamani = models.DateTimeField(default=timezone.now)
 

@@ -1,11 +1,63 @@
 {% extends "base.html" %}
 {% load static %}
 {% block style %}
+<link href="{% static 'css/bootstrap.tables.css' %}" rel="stylesheet">
 {% endblock %}
+
 {% block content %}
-<canvas id="myChart" width="1000" height="350"></canvas>
+<div class="card mb-4">
+  <div class="card-header"  style="color: #c7ae3c;background-color: #2f4050; font-size: 20px;">
+    Kalite Kontrol Genel Bakış
+  </div>
+  <div class="card-body">
+    <canvas id="myChart" width="960" height="350"></canvas>
+  </div>
+</div>
+<div class="card mb-4">
+  <div class="card-header"  style="color: #c7ae3c;background-color: #2f4050; font-size: 20px;">
+    Üretim Kontrol Genel Bakış
+  </div>
+  <div class="card-body">
+
+  </div>
+</div>
+<div class="card mb-4">
+  <div class="card-header"  style="color: #c7ae3c;background-color: #2f4050; font-size: 20px;">
+    Aktif Olan İstemciler
+  </div>
+  <div class="card-body">
+    <table id="aktifKullanicilar" class="display" style="width:100%">
+      <thead>
+          <tr>
+              <th>İstemci İsmi</th>
+              <th>Kullanıcı Adı</th>
+              <th>İşlem Adı</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>İstemci İsmi</td>
+          <td>Kullanıcı Adı</td>
+          <td><i>asasas</i></td>
+      </tr>
+      </tbody>
+  </table>
+  </div>
+</div>
+
 {% endblock %}
 {% block script %}
+<script src="{% static 'js/bootstrap.tables.js' %}"></script>
+<script>
+  $(document).ready(function() {
+    $('#aktifKullanicilar').DataTable( {
+        "scrollY":        "400px",
+        "scrollCollapse": true,
+        "paging":         false
+    } );
+} );
+</script>
+<script src="{% static 'js/apexchart.js' %}"></script>
 <script>
     $(document).ready(function(){
   var count = 10;

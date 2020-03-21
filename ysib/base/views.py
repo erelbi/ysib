@@ -24,6 +24,7 @@ def uretimkontrol(request):
         return render(request,'uretim-kontrol.html',{ 'mac' : mac })
 @login_required
 def isemri(request):
+        fullname = request.user.first_name + ' ' + request.user.last_name
         emirler = Emir.objects.all()
         if request.method == 'POST':
                 form = IsEmri(request.POST)
@@ -31,6 +32,7 @@ def isemri(request):
                         emir = form.save()
                         emir.refresh_from_db()
                         emir.is_emri = form.cleaned_data.get('is_emri')
+                        emir.urun_kodu = form.cleaned_data.get('urun_kodu')
                         emir.baslangic = form.cleaned_data.get('baslangic')
                         emir.bitis = form.cleaned_data.get('bitis')
                         emir.emri_veren = form.cleaned_data.get('emri_veren')
@@ -39,7 +41,8 @@ def isemri(request):
                         form.full_clean()
         else:
                 form = IsEmri()
-        return render(request,'is-emri.html', { 'form' : form , 'emirler': emirler , 'mac' : mac})
+                form.fields["emri_veren"].initial = fullname
+        return render(request,'is-emri.html', { 'form' : form , 'emirler': emirler , 'mac' : mac , 'fullname' : fullname })
 
 #@login_required
 def yetkilendirme(request):
