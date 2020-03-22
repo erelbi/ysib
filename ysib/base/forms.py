@@ -2,7 +2,7 @@ from django import forms
 #from django.contrib.auth import login , authenticate
 from .models import UserProfileInfo
 from django.contrib.auth.models import User
-from .models import Emir, User
+from .models import Emir, User ,Test
 import datetime
 from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
@@ -14,7 +14,7 @@ class UserRegisterForm(UserCreationForm):
     username = forms.CharField(max_length=100, label='Kullanıcı Adı')
     first_name = forms.CharField(max_length=100, label='İsim')
     last_name = forms.CharField(max_length=100, label='Soyisim')
-    zaman = forms.DateTimeField(initial=timezone.now())
+    zaman = forms.DateTimeField(initial=timezone.now)
 
     class Meta:
         model = User
@@ -36,3 +36,16 @@ class IsEmri(forms.ModelForm):
             'bitis': DateInput(),
         }
         fields = ('is_emri', 'baslangic', 'bitis', 'tup_sayisi','emri_veren','emir_zamani')
+
+
+class TestForm(forms.ModelForm):
+    tur = forms.CharField(max_length=100)
+    seri_no = forms.CharField(max_length=100)
+    acma = forms.CharField(max_length=100)
+    kapatma = forms.CharField(max_length=100)
+    testi_yapan = forms.CharField()
+    text_tarihi = forms.DateTimeField(initial=timezone.now)
+
+    class Meta:
+        model = Emir
+        fields = ('tur', 'seri_no', 'acma', 'kapatma','text_tarihi')

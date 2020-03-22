@@ -17,43 +17,25 @@
      data-toolbar="#toolbar">
 <thead>
   <tr>
-    <th data-field="isemri" data-filter-control="select" data-sortable="true">İş Emri</th>
-    <th data-field="altnikel" data-filter-control="select" data-sortable="true">Alt Nipel</th>
-    <th data-field="bakir" data-filter-control="select" data-sortable="true">Bakır Membrane</th>
-    <th data-field="ustnipel" data-filter-control="select" data-sortable="true">Üst Nipel</th>
-    <th data-field="barometre" data-filter-control="select" data-sortable="true">Barometre</th>
-    <th data-field="basinc" data-filter-control="select" data-sortable="true">Basınç Anahtarı</th>
-    <th data-field="mekanik" data-filter-control="select" data-sortable="true">Mekanik Vatil</th>
+    <th data-field="tur" data-filter-control="select" data-sortable="true">Basınç Anahtarı</th>
+    <th data-field="yapan" data-filter-control="select" data-sortable="true">Testi Yapan</th>
+    <th data-field="seri_no" data-filter-control="select" data-sortable="true">Seri No</th>
+    <th data-field="acma" data-filter-control="select" data-sortable="true">Açma</th>
+    <th data-field="kapatma" data-filter-control="select" data-sortable="true">Kapatma</th>
+    <th data-field="zaman" data-filter-control="select" data-sortable="true">Test Zamanı</th>
   </tr>
 </thead>
 <tbody>
-  <tr>
-    <td>İş emri 1</td>
-    <td>23687</td>
-    <td>2738</td>
-    <td>12/20</td>
-    <td>2738</td>
-    <td>3487</td>
-    <td>14/20</td>
-  </tr>
-  <tr>
-    <td>İs Emri 2</td>
-    <td>2387623</td>
-    <td>34324</td>
-    <td>8/20</td>
-    <td>343</td>
-    <td>4324</td>
-    <td>10/20</td>
-  </tr>
-  <tr>
-    <td>İs Emri 2</td>
-    <td>323</td>
-    <td>356</td>
-    <td>667</td>
-    <td>45345</td>
-    <td>1232</td>
-    <td>13/32</td>
-  </tr>
+  {% for test in testler %}
+        <tr>
+          <td>{{ test.tur }}</td>
+          <td>{{ test.testi_yapan }}</td>
+          <td>{{ test.seri_no }}</td>
+          <td>{{ test.acma }}</td>
+          <td>{{ test.kapatma }}</td>
+          <td>{{ test.test_tarihi }}</td>
+        </tr>
+  {% endfor %}
 </tbody>
 </table>
 

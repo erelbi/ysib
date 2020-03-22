@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block style %}
-<link href="{% static 'css/bootstrap.tables.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-tables.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -26,7 +26,11 @@
     Aktif Olan İstemciler
   </div>
   <div class="card-body">
-    <table id="aktifKullanicilar" class="display" style="width:100%">
+    <table id="table" 
+         data-toggle="table"
+         data-search="true"
+         data-filter-control="true" 
+         data-toolbar="#toolbar">
       <thead>
           <tr>
               <th>İstemci İsmi</th>
@@ -47,16 +51,8 @@
 
 {% endblock %}
 {% block script %}
-<script src="{% static 'js/bootstrap.tables.js' %}"></script>
-<script>
-  $(document).ready(function() {
-    $('#aktifKullanicilar').DataTable( {
-        "scrollY":        "400px",
-        "scrollCollapse": true,
-        "paging":         false
-    } );
-} );
-</script>
+<script src="{% static 'js/bootstrap-tables.js' %}"></script>
+
 <script src="{% static 'js/apexchart.js' %}"></script>
 <script>
     $(document).ready(function(){

@@ -1,5 +1,10 @@
 {% load static %}
 {% block basinc %}
+{% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
 <form class="form-inline">
     <div class="form-group mb-2">
       <h4>Bağlı Cihazlar</h4>
@@ -19,34 +24,34 @@
   </form>
   <hr>
   <div class="row">
-    <form action="" class="form-row col-md-8">
+    <form action="" class="form-row col-md-8" method="POST" id="basincAnahtariFormu">{% csrf_token %}
       <span class="col-md-6">Serial No.</span>
       <span class="col-md-3">Kapatma</span>
       <span class="col-md-3">Açma</span>
-      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-6"><input type="text" class="form-control textinput"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
-      <div class="form-group col-md-3"><input type="text" class="form-control"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput" required="required"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="17"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="24"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput" required="required"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="18"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="23"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput" required="required"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="19"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="24"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput" required="required"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="20"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="21"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput" required="required"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="17"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="20"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput" required="required"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="21"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="22"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput" required="required"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="18"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="19"></div>
+      <div class="form-group col-md-6"><input type="text" class="form-control textinput" required="required"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="18"></div>
+      <div class="form-group col-md-3"><input type="text" class="form-control" value="25"></div>
     </form>
     <div class="col-md-4">
       <button type="button" class="btn btn-success btn-lg btn-huge">BAŞLAT</button>
@@ -70,5 +75,5 @@
     </div>
   </div>
   <hr>
-  <div class="col-md-4 mx-auto"><button type="button" class="btn btn-success btn-lg btn-block">KAYDET</button></div>
+  <div class="col-md-4 mx-auto"><button type="button" id="kaydetBasinc" class="btn btn-success btn-lg btn-block">KAYDET</button></div>
 {% endblock %}

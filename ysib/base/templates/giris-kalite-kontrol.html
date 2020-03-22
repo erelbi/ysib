@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block style %}
+<link href="{% static 'css/sweetalert2.min.css' %}" rel="stylesheet">
 <style>
 
 .tab-wrapper {
@@ -315,6 +316,7 @@ var gauge2 = new RadialGauge({
     animationDuration: 100,
     animationRule: "linear"
 }).draw();
+/*
   setInterval(()=>{
     $.ajax(
         {
@@ -327,8 +329,49 @@ var gauge2 = new RadialGauge({
         }
        );
   },1000)
-   
+   */
 </script>
-
+<script src="{% static 'js/sweetalert2.min.js' %}"></script>
+<script>
+  document.getElementById('kaydetBasinc').addEventListener('click',(e)=>{
+    var veri = new Array(8); 
+    for (var i = 0; i < veri.length; i++) { 
+        veri[i] = new Array(3); 
+    } 
+    let c = 0;
+    let inputs = document.querySelectorAll('#basincAnahtariFormu input[type="text"]');
+    for (var i = 0; i < 8; i++) {
+      for (var j = 0; j < 3; j++){
+        veri[i][j] = inputs[c].value;
+        c++;
+      }
+    }
+    veri = JSON.stringify(veri)
+    e.preventDefault();
+    let data = {
+      tur : 'basinc',
+      veri : veri
+    }
+    //console.log(veri)
+    $.ajax(
+        {
+          type: "POST",
+          url: '/giriskalite',
+          data : data,
+          success: function (x){
+            Swal.fire({
+              title: 'Başarılı!',
+              text: 'Test sonucu başarılı bir şekilde eklendi!',
+              icon: 'success',
+              confirmButtonText: 'Tamam'
+            })
+          },
+          error(err){
+            console.log;(err);
+          }
+        }
+      );
+  })
+</script>
 
 {% endblock %}

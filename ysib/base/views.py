@@ -1,13 +1,16 @@
 from django.shortcuts import render,redirect
-from .forms import UserRegisterForm, IsEmri
+from .forms import UserRegisterForm, IsEmri ,TestForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login ,logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.contrib.auth.models import User
-from .models import Emir
+from .models import Emir , Test
 from django.contrib.auth.decorators import login_required
 import platform
+import json
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 mac = platform.machine()[:3] # eğer device ras pi ise 'arm' döner
 @login_required
@@ -15,9 +18,19 @@ def index(request):
         return render(request,'index.html', { 'mac' : mac })
 @login_required
 def arama(request):
-        return render(request,'arama.html',{ 'mac' : mac })
+        testler = Test.objects.all()
+        return render(request,'arama.html',{ 'mac' : mac , 'testler' : testler})
 @login_required
+@csrf_exempt
 def giriskalite(request):
+        #Test.objects.all().delete()  Test sonuçlarını silmek için 
+        fullname = request.user.first_name + ' ' + request.user.last_name
+        if request.method == 'POST':
+                if request.POST.dict()['tur'] == 'basinc':
+                        veris = json.loads(request.POST.dict()['veri'])
+                        for veri in veris:
+                                t = Test(tur='basinc',seri_no = veri[0] , acma = veri[1] , kapatma = veri[2] ,testi_yapan = fullname)
+                                t.save(force_insert=True)
         return render(request,'giris-kalite-kontrol.html',{ 'mac' : mac })
 @login_required
 def uretimkontrol(request):
@@ -68,6 +81,9 @@ def yetkilendirme(request):
 @login_required
 def performans(request):
         return render(request,'performans.html',{ 'mac' : mac })
+@login_required
+def yazdir(request):
+        return render(request,'yazdir.html',{ 'mac' : mac })
 @login_required
 def ulogout(request):
         logout(request)
