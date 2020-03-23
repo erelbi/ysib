@@ -31,6 +31,9 @@ def giriskalite(request):
                         for veri in veris:
                                 t = Test(tur='basinc',seri_no = veri[0] , acma = veri[1] , kapatma = veri[2] ,testi_yapan = fullname)
                                 t.save(force_insert=True)
+                elif request.POST.dict()['tur'] == 'emniyet':
+                        veri = request.POST.dict()['veri']
+                        print(veri)
         return render(request,'giris-kalite-kontrol.html',{ 'mac' : mac })
 @login_required
 def uretimkontrol(request):

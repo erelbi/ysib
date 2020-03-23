@@ -114,7 +114,6 @@
   
 {% endblock %}
 {% block script %}
-{% if mac == 'arm' %}
 <script src="{% static 'js/skeyboard.js' %}"></script>
 <script>
 
@@ -206,7 +205,6 @@ function hideKeyboard() {
 }
 
 </script>
-{% endif %}
 <script>
       $(document).ready(function() {
   
