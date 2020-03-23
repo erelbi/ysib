@@ -36,7 +36,16 @@ def giriskalite(request):
                         print(veri)
         return render(request,'giris-kalite-kontrol.html',{ 'mac' : mac })
 @login_required
+@csrf_exempt
 def uretimkontrol(request):
+        #Test.objects.all().delete()  #Test sonuçlarını silmek için bu yorumu açabilirsiniz abi
+        fullname = request.user.first_name + ' ' + request.user.last_name
+        if request.method == 'POST':
+                if request.POST.dict()['tur'] == 'Valf Montaj':
+                        veris = json.loads(request.POST.dict()['veri'])
+                        for veri in veris:
+                                t = Test(tur='Valf Montaj',seri_no = veri[0] , acma = veri[1] , kapatma = veri[2] ,testi_yapan = fullname)
+                                t.save(force_insert=True)
         return render(request,'uretim-kontrol.html',{ 'mac' : mac })
 @login_required
 def isemri(request):
@@ -52,7 +61,7 @@ def isemri(request):
                         emir.baslangic = form.cleaned_data.get('baslangic')
                         emir.bitis = form.cleaned_data.get('bitis')
                         emir.emri_veren = form.cleaned_data.get('emri_veren')
-                        messages.success(request,f'{emir.emri_veren} isimli kullanıcı tarafından bir emir eklendi!')
+                        messages.success(request,'{} isimli kullanıcı tarafından bir emir eklendi!'.format(emir.emri_veren))
                         emir.save()
                         form.full_clean()
         else:
@@ -73,7 +82,7 @@ def yetkilendirme(request):
                         user.save()
                         username = form.cleaned_data.get('username')
                         password = form.cleaned_data.get('password1')
-                        messages.success(request,f'{username} isimli kullanıcı eklendi!')
+                        messages.success(request,'{} isimli kullanıcı eklendi!'.format(username))
                         login(request, user)
                 else:
                         print(form.errors)
@@ -101,7 +110,7 @@ def ulogin(request):
                 if user:
                         if user.is_active:
                                 login(request,user)
-                                print(f'{username} kullanıcısı tarafından başarılı giriş')
+                                print('{} kullanıcısı tarafından başarılı giriş'.format(username))
                                 return redirect('index')
                         else:
                                 messages.warning(request,'Kullanıcı adınızı yada parolanızı yanlış girdiniz.')

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block style %}
+<link href="{% static 'css/sweetalert2.min.css' %}" rel="stylesheet">
 <style>
 
 .tab-wrapper {
@@ -46,7 +47,6 @@
   border-style: solid;
 }
 </style>
-{% if mac == 'arm' %}
 <style> 
   .simple-keyboard {
     /*max-width: 850px;*/
@@ -72,7 +72,6 @@
 }
 </style>
 <link href="{% static 'css/skeyboard.css' %}" rel="stylesheet">
-{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -142,8 +141,6 @@ for (let i = 0; i < els.length; i++) {
   });
 }
 
-
-
 document.addEventListener("click", event => {
   if (
     // Target is not keyboard element
@@ -192,9 +189,6 @@ function handleShiftButton() {
     layoutName: shiftToggle
   });
 }
-
-
-
 
 function showKeyboard() {
   keyboard.keyboardDOM.classList.add("show-keyboard");
@@ -278,41 +272,6 @@ function hideKeyboard() {
 </script>
 <script>
 
-var gauge2 = new RadialGauge({
-    renderTo: 'mano-gauge',
-    units: "bar",
-    minValue: 0,
-    maxValue: 40,
-    //height: w - 100,
-    majorTicks: [
-        "0",
-        "5",
-        "10",
-        "15",
-        "20",
-        "25",
-        "30",
-        "35",
-        "40"
-    ],
-    highlights : [
-      { from: 0, to: 40, color: '#fff' },
-    ],
-    minorTicks: 2,
-    valueInt : 1,
-    valueDec : 1,
-    strokeTicks: true,
-    colorPlate: "#fff",
-    borderShadowWidth: 0,
-    borders: false,
-    needleType: "arrow",
-    needleWidth: 2,
-    needleCircleSize: 7,
-    needleCircleOuter: true,
-    needleCircleInner: false,
-    animationDuration: 100,
-    animationRule: "linear"
-}).draw();
   setInterval(()=>{
     $.ajax(
         {
@@ -320,62 +279,54 @@ var gauge2 = new RadialGauge({
           url: 'https://www.random.org/integers/?num=1&min=1&max=40&col=1&base=10&format=plain&rnd=new.php',
           success: function (x){
             gauge.value = x;
-            gauge2.value = x;
           },
         }
        );
   },1000)
    
 </script>
-<script src="{% static 'js/apexchart.js' %}"></script>
-<script>
-          var optionspie = {
-          series: [400, 430, 448,367,212,457,111],
-          chart: {
-          width: 500,
-          type: 'pie',
-        },
-        labels: ['Valf Montaj', 'Valf Test Ünitesi','Valf-Gövde Montaj Ünitesi','FM200-Azot Dolum Ünitesi','Havuz Test Ünitesi', 'Final Montaj'],
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 400
-            },
-            legend: {
-              position: 'bottom'
-            }
-          }
-        }]
-        };
 
-        var chart = new ApexCharts(document.querySelector("#pie"), optionspie);
-        chart.render();
-</script>
+
+<script src="{% static 'js/sweetalert2.min.js' %}"></script>
 <script>
-  var optionsbar = {
-          series: [{
-          data: [400, 430, 448,367,212,457,111]
-        }],
-          chart: {
-          type: 'bar',
-          height: 350
-        },
-        plotOptions: {
-          bar: {
-            horizontal: true,
+  document.getElementById('kaydetBasinc').addEventListener('click',(e)=>{
+    var veri = new Array(8); 
+    for (var i = 0; i < veri.length; i++) { 
+        veri[i] = new Array(3); 
+    } 
+    let c = 0;
+    let inputs = document.querySelectorAll('#basincAnahtariFormu input[type="text"]');
+    for (var i = 0; i < 8; i++) {
+      for (var j = 0; j < 3; j++){
+        veri[i][j] = inputs[c].value;
+        c++;
+      }
+    }
+    veri = JSON.stringify(veri)
+    e.preventDefault();
+    let data = {
+      tur : 'Valf Montaj',
+      veri : veri
+    }
+    //console.log(veri)
+    $.ajax(
+        {
+          type: "POST",
+          url: '/uretimkontrol',
+          data : data,
+          success: function (x){
+            Swal.fire({
+              title: 'Başarılı!',
+              text: 'Test sonucu başarılı bir şekilde eklendi!',
+              icon: 'success',
+              confirmButtonText: 'Tamam'
+            })
+          },
+          error(err){
+            console.log;(err);
           }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        xaxis: {
-          categories: ['Valf Montaj', 'Valf Test Ünitesi','Valf-Gövde Montaj Ünitesi','FM200-Azot Dolum Ünitesi','Havuz Test Ünitesi', 'Final Montaj',
-          ],
         }
-        };
-
-        var chart = new ApexCharts(document.querySelector("#bar"), optionsbar);
-        chart.render();
+      );
+  })
 </script>
 {% endblock %}
